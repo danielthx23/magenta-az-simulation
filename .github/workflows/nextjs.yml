@@ -6,7 +6,7 @@ on:
       - main  # Ensure proper indentation and syntax
 
 jobs:
-  # Build job
+  # Build job test
   build:
     runs-on: self-hosted
 
