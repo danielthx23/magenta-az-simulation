@@ -8,33 +8,38 @@ generator client {
 }
 
 model Usuarios {
-  id_usuario      Int       @id @default(autoincrement())
-  data_registro   DateTime
-  email_usuario   String    @unique
-  nickname_usuario String   @unique
-  imagem          String    @default("default.png")
+  id_usuario      Int                @id @default(autoincrement())
+  data_registro   DateTime           @default(now())
+  email_usuario   String             @unique
+  nickname_usuario String             @unique
+  imagem          String             @default("default.png")
   Respostas_Usuarios Respostas_Usuarios[]
   Leaderboard     Leaderboard?
+
+  @@map("usuarios") 
 }
 
 model Perguntas {
-  id_pergunta     Int       @id @default(autoincrement())
+  id_pergunta     Int                @id @default(autoincrement())
   pergunta        String
-  imagem          String
+  imagem          String?
   ativa           Boolean
   Alternativas    Alternativas[]
   Respostas_Usuarios Respostas_Usuarios[]
+
+  @@map("perguntas") 
 }
 
 model Alternativas {
-  id_alternativa  Int       @id @default(autoincrement())
+  id_alternativa  Int                @id @default(autoincrement())
   id_pergunta     Int
   alternativa_correta Boolean
   texto_alternativa String
-  Perguntas       Perguntas @relation(fields: [id_pergunta], references: [id_pergunta], onDelete: Cascade)
+  Perguntas       Perguntas         @relation(fields: [id_pergunta], references: [id_pergunta], onDelete: Cascade)
   Respostas_Usuarios Respostas_Usuarios[]
 
   @@index([id_pergunta])
+  @@map("alternativas") 
 }
 
 model Respostas_Usuarios {
@@ -42,18 +47,21 @@ model Respostas_Usuarios {
   id_pergunta     Int
   id_alternativa  Int
   correta         Boolean
-  data_resposta   DateTime
-  Usuarios        Usuarios  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
-  Perguntas       Perguntas @relation(fields: [id_pergunta], references: [id_pergunta], onDelete: Cascade)
-  Alternativas    Alternativas @relation(fields: [id_alternativa], references: [id_alternativa], onDelete: Cascade)
+  data_resposta   DateTime           @default(now())
+  Usuarios        Usuarios           @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
+  Perguntas       Perguntas         @relation(fields: [id_pergunta], references: [id_pergunta], onDelete: Cascade)
+  Alternativas    Alternativas       @relation(fields: [id_alternativa], references: [id_alternativa], onDelete: Cascade)
 
   @@id([id_usuario, id_pergunta, id_alternativa])
   @@index([id_pergunta])
   @@index([id_alternativa])
+  @@map("respostas_usuarios")
 }
 
 model Leaderboard {
-  id_usuario      Int       @id
-  pontos          Int       @default(0) @db.Int @check("pontos >= 0 AND pontos <= 1000")
-  Usuarios        Usuarios  @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
+  id_usuario      Int                @id
+  pontos          Int                @default(0) @db.Int // Removed @check constraint
+  Usuarios        Usuarios           @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
+
+  @@map("leaderboard")
 }
