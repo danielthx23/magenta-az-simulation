@@ -1,0 +1,21 @@
+name: Deploy Next.js site to Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  # Build job
+  build:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Linux ls
+        id: echo_linux
+        run: |
+          echo "Listing Linux files:"
+          ls -la
