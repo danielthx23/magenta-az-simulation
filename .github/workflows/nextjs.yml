@@ -3,7 +3,7 @@ name: Deploy Next.js site to Pages
 on:
   push:
     branches:
-      - main
+      - main  # Ensure proper indentation and syntax
 
 jobs:
   # Build job
@@ -11,11 +11,17 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Linux ls
-        id: echo_linux
+      - name: Set up Docker Build
+        id: docker_build
         run: |
-          echo "Listing Linux files:"
-          ls -la
+          echo "Building Docker image..."
+          docker build -t nextjs-app .
+
+      - name: Run Docker container (optional, depending on your app)
+        id: docker_run
+        run: |
+          echo "Running Docker container..."
+          docker run -d -p 3000:3000 nextjs-app
