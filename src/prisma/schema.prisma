@@ -12,6 +12,7 @@ model Usuarios {
   data_registro   DateTime
   email_usuario   String    @unique
   nickname_usuario String   @unique
+  imagem          String    @default("default.png")
   Respostas_Usuarios Respostas_Usuarios[]
   Leaderboard     Leaderboard?
 }
@@ -19,6 +20,7 @@ model Usuarios {
 model Perguntas {
   id_pergunta     Int       @id @default(autoincrement())
   pergunta        String
+  imagem          String
   ativa           Boolean
   Alternativas    Alternativas[]
   Respostas_Usuarios Respostas_Usuarios[]
