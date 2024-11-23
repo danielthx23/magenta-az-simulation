@@ -24,4 +24,4 @@ jobs:
         id: docker_run
         run: |
           echo "Running Docker container..."
-          docker run -p 3000:3000 nextjs-app
+          docker run -d -p 3000:3000 nextjs-app
