@@ -60,7 +60,7 @@ model Respostas_Usuarios {
 
 model Leaderboard {
   id_usuario      Int                @id
-  pontos          Int                @default(0) // Removed @db.Int annotation
+  pontos          Int                @default(0) 
   Usuarios        Usuarios           @relation(fields: [id_usuario], references: [id_usuario], onDelete: Cascade)
 
   @@map("leaderboard")
