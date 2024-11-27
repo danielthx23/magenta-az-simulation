@@ -4,7 +4,7 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function GET() {
-  const respostasUsuarios = await prisma.respostas_usuarios.findMany({
+  const respostasUsuarios = await prisma.respostas_Usuarios.findMany({
     include: {
       Usuarios: true,
       Perguntas: true, 
@@ -18,12 +18,12 @@ export async function GET() {
 export async function POST(request: Request) {
   const { id_usuario, id_pergunta, id_alternativa, correta } = await request.json();
 
-  const respostaUsuario = await prisma.respostas_usuarios.create({
+  const respostaUsuario = await prisma.respostas_Usuarios.create({
     data: {
-      id_usuario,
-      id_pergunta,
-      id_alternativa,
-      correta,
+      id_usuario: id_usuario,
+      id_pergunta: id_pergunta,
+      id_alternativa: id_alternativa,
+      correta: correta,
     },
   });
 

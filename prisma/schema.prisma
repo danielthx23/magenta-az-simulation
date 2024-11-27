@@ -11,8 +11,9 @@ model Usuarios {
   id_usuario      Int                @id @default(autoincrement())
   data_registro   DateTime           @default(now())
   email_usuario   String             @unique
-  nickname_usuario String             @unique
-  imagem          String             @default("default.png")
+  nickname_usuario String            @db.VarChar(255)
+  imagem          String?             @db.VarChar(255) @default("default.png")
+  senha           String             @db.VarChar(255)
   Respostas_Usuarios Respostas_Usuarios[]
   Leaderboard     Leaderboard?
 
@@ -21,8 +22,8 @@ model Usuarios {
 
 model Perguntas {
   id_pergunta     Int                @id @default(autoincrement())
-  pergunta        String
-  imagem          String?
+  pergunta        String              @db.VarChar(255)
+  imagem          String?            @db.VarChar(255) // Nullable
   ativa           Boolean
   Alternativas    Alternativas[]
   Respostas_Usuarios Respostas_Usuarios[]
@@ -34,7 +35,7 @@ model Alternativas {
   id_alternativa  Int                @id @default(autoincrement())
   id_pergunta     Int
   alternativa_correta Boolean
-  texto_alternativa String
+  texto_alternativa String          @db.VarChar(255)
   Perguntas       Perguntas         @relation(fields: [id_pergunta], references: [id_pergunta], onDelete: Cascade)
   Respostas_Usuarios Respostas_Usuarios[]
 

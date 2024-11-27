@@ -4,6 +4,7 @@ CREATE TABLE Usuarios (
     data_registro TIMESTAMP NOT NULL,
     email_usuario VARCHAR(255) UNIQUE NOT NULL,
     nickname_usuario VARCHAR(255) UNIQUE NOT NULL,
+    senha           VARCHAR(255) NOT NULL,
     imagem VARCHAR(255) DEFAULT 'default.png'
 );
 

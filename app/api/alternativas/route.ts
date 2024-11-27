@@ -4,13 +4,15 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 export async function POST(request: Request) {
-    const { id_pergunta, alternativa_correta, texto_alternativa } = await request.json();
+    const { alternativa_correta, texto_alternativa, id_pergunta } = await request.json();
   
     const alternativa = await prisma.alternativas.create({
       data: {
-        id_pergunta,
-        alternativa_correta,
-        texto_alternativa,
+        alternativa_correta: alternativa_correta,
+        texto_alternativa: texto_alternativa,
+        Perguntas: {
+          connect: { id_pergunta: id_pergunta }, 
+      }
       },
     });
   
