@@ -141,7 +141,7 @@ const Quiz = () => {
         return (
             <main className="w-full h-screen flex justify-center items-center">
                 <Button
-                    className="text-2xl px-4 py-2 rounded-md bg-white text-[#e3017e] hover:bg-[#e3017e] hover:text-white border-2 hover:border-[#e3017e] transition-all ease-in-out"
+                    className="text-2xl px-4 py-2 rounded-2xl bg-white text-[#e3017e] hover:bg-[#e3017e] hover:text-white border-2 hover:border-[#e3017e] transition-all ease-in-out"
                     handleClick={startQuiz}
                     disabled={usuario?.Respostas_Usuarios ? usuario?.Respostas_Usuarios.length > 0 : false}
                 >
