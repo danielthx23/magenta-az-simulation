@@ -9,7 +9,7 @@ import Image from 'next/image';
 const NavBar = () => {
     const {usuario, handleLogout} = useAuth()
     return (
-        <header className="w-full p-8 sticky top-0 left-0 items-center bg-white z-10">
+        header className="w-full p-4 sticky top-0 left-0 flex justify-end px-16 gap-4 items-center bg-white">
             <nav className="w-full h-full text-lg text-black flex justify-between px-16">
                 <ul>
                     <Link href="/feedback">Feedback</Link>

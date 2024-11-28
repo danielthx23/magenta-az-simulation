@@ -47,7 +47,7 @@ const Step = ({ pergunta, onAnswer, loading }: StepProps) => {
           const showCorrectStyle = showCorrectAnswer && isCorrect;
 
           const buttonClass = [
-            "w-full py-2 px-4 rounded-md text-lg flex gap-4 items-center transition-all",
+            "w-full py-2 border border-gray-200 bg-red-100 hover:bg-gray-200 transition-all ease-in-out rounded-md text-lg flex gap-4 shadow",
             loading || selectedAlternative !== null ? "cursor-not-allowed" : "hover:bg-gray-200",
             isSelected
               ? isCorrect
@@ -57,14 +57,17 @@ const Step = ({ pergunta, onAnswer, loading }: StepProps) => {
               ? "bg-green-300 text-white"
               : "bg-white text-black border border-gray-300",
           ].join(" ");
-
-          return (
-            <li key={alt.id_alternativa} className="w-full max-w-lg">
-              <Button
-                className={buttonClass}
-                disabled={loading || selectedAlternative !== null}
-                handleClick={() => handleAnswerClick(alt.id_alternativa, isCorrect)}
-              >
+  
+    return (
+      <div className="w-full h-[80vh] lg:min-h-screen  flex justify-center items-center flex-col gap-8 bg-white rounded-lg">
+        {pergunta.imagem && <figure className="w-full px-16  h-fit">
+            <Image className="w-full h-auto object-cover" width={500} height={100} src={getBlobUrl(pergunta.imagem)} alt="Imagem da pergunta" />
+          </figure>}
+        <h2 className="text-xl">{pergunta.pergunta}</h2>
+        <ul className="w-full">
+          {pergunta.Alternativas && pergunta.Alternativas.map((alt: Alternativas, index) => (
+            <li className="w-full py-2 px-16" key={alt.id_alternativa} >
+              <Button className={buttonClass} disabled={loading || selectedAlternative !== null} handleClick={() => handleClick={() => handleAnswerClick(alt.id_alternativa, isCorrect)}>
                 <span className="font-medium">{index + 1}.</span>
                 <span>{loading ? "Carregando..." : alt.texto_alternativa}</span>
               </Button>
